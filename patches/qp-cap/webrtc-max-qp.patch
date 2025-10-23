@@ -1,0 +1,31 @@
+From cab8c572525e8675b5e917e9656bff21f9dd87f8 Mon Sep 17 00:00:00 2001
+From: Steve Seguin <steve@seguin.email>
+Date: Wed, 22 Oct 2025 20:53:18 -0400
+Subject: [PATCH] feat: lower default video max qp for higher quality
+
+---
+ media/base/media_constants.cc | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/media/base/media_constants.cc b/media/base/media_constants.cc
+index 966ac39eba..47fe1cdb0e 100644
+--- a/media/base/media_constants.cc
++++ b/media/base/media_constants.cc
+@@ -137,11 +137,11 @@ const char kAv1FmtpTier[] = "tier";
+ 
+ const int kDefaultVideoMaxFramerate = 60;
+ // Max encode quantizer for VP8/9 and AV1 encoders assuming libvpx/libaom API
+-// range [0, 63]
+-const int kDefaultVideoMaxQpVpx = 56;
+-const int kDefaultVideoMaxQpAv1 = 52;
++// range [0, 63], tuned for higher quality capture.
++const int kDefaultVideoMaxQpVpx = 16;
++const int kDefaultVideoMaxQpAv1 = 16;
+ // Max encode quantizer for H264/5 assuming the bitstream range [0, 51].
+-const int kDefaultVideoMaxQpH26x = 51;
++const int kDefaultVideoMaxQpH26x = 20;
+ 
+ const size_t kConferenceMaxNumSpatialLayers = 3;
+ const size_t kConferenceMaxNumTemporalLayers = 3;
+-- 
+2.43.0
