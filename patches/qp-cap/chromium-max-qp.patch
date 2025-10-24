@@ -1,119 +1,98 @@
-From 02afbf2f6adca968c6fc1da82cba37a7ef87f308 Mon Sep 17 00:00:00 2001
-From: Steve Seguin <steve@seguin.email>
-Date: Wed, 22 Oct 2025 20:54:00 -0400
-Subject: [PATCH] feat: tighten encoder max QP defaults
-
----
- media/gpu/mac/vt_video_encode_accelerator_mac.mm     |  2 +-
- media/gpu/windows/d3d12_video_encode_av1_delegate.cc |  2 +-
- media/gpu/windows/mf_video_encoder_util.h            | 10 +++++-----
- media/video/av1_video_encoder.cc                     |  2 +-
- media/video/vpx_video_encoder.cc                     |  2 +-
- third_party/webrtc                                   |  2 +-
- 6 files changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/media/gpu/mac/vt_video_encode_accelerator_mac.mm b/media/gpu/mac/vt_video_encode_accelerator_mac.mm
-index 8e0b0495a34b0..ce1ecfc6f1ab0 100644
---- a/media/gpu/mac/vt_video_encode_accelerator_mac.mm
-+++ b/media/gpu/mac/vt_video_encode_accelerator_mac.mm
-@@ -61,7 +61,7 @@ constexpr size_t kMaxFrameRateNumerator = 120;
- constexpr size_t kMaxFrameRateDenominator = 1;
- constexpr size_t kNumInputBuffers = 3;
- constexpr gfx::Size kDefaultSupportedResolution = gfx::Size(640, 480);
--constexpr int kH26xMaxQp = 51;
-+constexpr int kH26xMaxQp = 20;
- 
- #if SOFTWARE_ENCODING_SUPPORTED
- // The IDs of the encoders that may be selected when we enable low latency via
 diff --git a/media/gpu/windows/d3d12_video_encode_av1_delegate.cc b/media/gpu/windows/d3d12_video_encode_av1_delegate.cc
-index b2cb11ac4e13c..7105c1159322e 100644
+index 7105c1159322e..0cb99c1ba0d6c 100644
 --- a/media/gpu/windows/d3d12_video_encode_av1_delegate.cc
 +++ b/media/gpu/windows/d3d12_video_encode_av1_delegate.cc
-@@ -28,7 +28,7 @@ constexpr uint32_t kPrimaryRefNone = 7;
- // //third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder.cc,
- constexpr uint8_t kAV1MinQuantizer = 10;
- // //third_party/webrtc/media/engine/webrtc_video_engine.h.
--constexpr uint8_t kAV1MaxQuantizer = 56;
-+constexpr uint8_t kAV1MaxQuantizer = 20;
+@@ -26,7 +26,7 @@ constexpr uint32_t kPrimaryRefNone = 7;
  
- // Sensible default values for CDEF taken from
- // https://github.com/intel/libva-utils/blob/master/encode/av1encode.c
-diff --git a/media/gpu/windows/mf_video_encoder_util.h b/media/gpu/windows/mf_video_encoder_util.h
-index d104bc39b73f2..b8626f4cdd6f0 100644
---- a/media/gpu/windows/mf_video_encoder_util.h
-+++ b/media/gpu/windows/mf_video_encoder_util.h
-@@ -93,7 +93,7 @@ static constexpr auto kSupportedPixelFormatsD3DVideoProcessing =
-          PIXEL_FORMAT_NV21, PIXEL_FORMAT_ARGB, PIXEL_FORMAT_XRGB,
-          PIXEL_FORMAT_ABGR, PIXEL_FORMAT_XBGR});
- 
--static constexpr int kH26xMaxQp = 51;
-+static constexpr int kH26xMaxQp = 20;
- static constexpr uint64_t kVP9MaxQIndex = 255;
- static constexpr uint64_t kAV1MaxQIndex = 255;
- 
-@@ -101,18 +101,18 @@ static constexpr uint64_t kAV1MaxQIndex = 255;
- // These are based on WebRTC's defaults, cite from
- // third_party/webrtc/media/engine/webrtc_video_engine.h.
- static constexpr uint8_t kVP9MinQuantizer = 2;
--static constexpr uint8_t kVP9MaxQuantizer = 56;
-+static constexpr uint8_t kVP9MaxQuantizer = 20;
  // Default value from
  // //third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder.cc,
- static constexpr uint8_t kAV1MinQuantizer = 10;
+-constexpr uint8_t kAV1MinQuantizer = 10;
++constexpr uint8_t kAV1MinQuantizer = 0;
  // //third_party/webrtc/media/engine/webrtc_video_engine.h.
--static constexpr uint8_t kAV1MaxQuantizer = 56;
-+static constexpr uint8_t kAV1MaxQuantizer = 20;
+ constexpr uint8_t kAV1MaxQuantizer = 20;
+ 
+diff --git a/media/gpu/windows/mf_video_encoder_util.h b/media/gpu/windows/mf_video_encoder_util.h
+index b8626f4cdd6f0..50f63b3b3404d 100644
+--- a/media/gpu/windows/mf_video_encoder_util.h
++++ b/media/gpu/windows/mf_video_encoder_util.h
+@@ -100,26 +100,26 @@ static constexpr uint64_t kAV1MaxQIndex = 255;
+ // Quantizer parameter used in libvpx vp9 rate control, whose range is 0-63.
+ // These are based on WebRTC's defaults, cite from
+ // third_party/webrtc/media/engine/webrtc_video_engine.h.
+-static constexpr uint8_t kVP9MinQuantizer = 2;
++static constexpr uint8_t kVP9MinQuantizer = 0;
+ static constexpr uint8_t kVP9MaxQuantizer = 20;
+ // Default value from
+ // //third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder.cc,
+-static constexpr uint8_t kAV1MinQuantizer = 10;
++static constexpr uint8_t kAV1MinQuantizer = 0;
+ // //third_party/webrtc/media/engine/webrtc_video_engine.h.
+ static constexpr uint8_t kAV1MaxQuantizer = 20;
  
  // The range for the quantization parameter is determined by examining the
  // estimated QP values from the SW bitrate controller in various encoding
  // scenarios.
- static constexpr uint8_t kH264MinQuantizer = 16;
--static constexpr uint8_t kH264MaxQuantizer = 51;
-+static constexpr uint8_t kH264MaxQuantizer = 20;
+-static constexpr uint8_t kH264MinQuantizer = 16;
++static constexpr uint8_t kH264MinQuantizer = 0;
+ static constexpr uint8_t kH264MaxQuantizer = 20;
  
  #if BUILDFLAG(ENABLE_PLATFORM_HEVC)
  // For H.265, ideally we may reuse Min/MaxQp for H.264 from
-@@ -120,7 +120,7 @@ static constexpr uint8_t kH264MaxQuantizer = 51;
- // test shows most of the drivers require a min QP of 10 to reach
- // target bitrate especially at low resolution.
- static constexpr uint8_t kH265MinQuantizer = 10;
--static constexpr uint8_t kH265MaxQuantizer = 42;
-+static constexpr uint8_t kH265MaxQuantizer = 20;
+-// media/gpu/vaapi/h264_vaapi_video_encoder_delegate.cc. However
+-// test shows most of the drivers require a min QP of 10 to reach
+-// target bitrate especially at low resolution.
+-static constexpr uint8_t kH265MinQuantizer = 10;
++// media/gpu/vaapi/h264_vaapi_video_encoder_delegate.cc to align behaviour.
++// Allow a floor of 0 to unlock near-lossless quality for high bitrate use
++// cases; individual drivers may clamp upward internally if they require it.
++static constexpr uint8_t kH265MinQuantizer = 0;
+ static constexpr uint8_t kH265MaxQuantizer = 20;
  #endif  // BUILDFLAG(ENABLE_PLATFORM_HEVC)
  
- // Converts AV1/VP9 qindex (0-255) to the quantizer parameter input in MF
 diff --git a/media/video/av1_video_encoder.cc b/media/video/av1_video_encoder.cc
-index b23e8166c2003..742dd39f27532 100644
+index 742dd39f27532..e322bb6ae1364 100644
 --- a/media/video/av1_video_encoder.cc
 +++ b/media/video/av1_video_encoder.cc
-@@ -153,7 +153,7 @@ EncoderStatus SetUpAomConfig(VideoCodecProfile profile,
-   config.g_pass = AOM_RC_ONE_PASS;
+@@ -154,7 +154,7 @@ EncoderStatus SetUpAomConfig(VideoCodecProfile profile,
    // libaom encoding is performed synchronously.
    config.g_lag_in_frames = 0;
--  config.rc_max_quantizer = 56;
-+  config.rc_max_quantizer = 20;
-   config.rc_min_quantizer = 10;
+   config.rc_max_quantizer = 20;
+-  config.rc_min_quantizer = 10;
++  config.rc_min_quantizer = 0;
    // Only if latency_mode is real time, a frame might be dropped.
    config.rc_dropframe_thresh =
+       opts.latency_mode == VideoEncoder::LatencyMode::Realtime
+@@ -202,7 +202,7 @@ EncoderStatus SetUpAomConfig(VideoCodecProfile profile,
+         config.rc_end_usage = AOM_CBR;
+         // Let the whole AV1 quantizer range to be used.
+         config.rc_max_quantizer = 63;
+-        config.rc_min_quantizer = 1;
++        config.rc_min_quantizer = 0;
+         break;
+     }
+     if (bitrate.target_bps() != 0) {
 diff --git a/media/video/vpx_video_encoder.cc b/media/video/vpx_video_encoder.cc
-index 4ca1343898415..7fcb102ca5e99 100644
+index 7fcb102ca5e99..ebbcd7e8ea2e1 100644
 --- a/media/video/vpx_video_encoder.cc
 +++ b/media/video/vpx_video_encoder.cc
-@@ -82,7 +82,7 @@ EncoderStatus SetUpVpxConfig(const VideoEncoder::Options& opts,
-   config->g_pass = VPX_RC_ONE_PASS;
+@@ -83,16 +83,10 @@ EncoderStatus SetUpVpxConfig(const VideoEncoder::Options& opts,
    // libvpx encoding is performed synchronously.
    config->g_lag_in_frames = 0;
--  config->rc_max_quantizer = 58;
-+  config->rc_max_quantizer = 20;
-   // Increase min QP to 12 for vp8 screen sharing; It reduces the encoding
-   // bitrate on static content and thus helps reduce big overshoot on slide
-   // change. This optimization is cited from libwebRTC.
-diff --git a/third_party/webrtc b/third_party/webrtc
-index 47ad4b691875b..cab8c572525e8 160000
---- a/third_party/webrtc
-+++ b/third_party/webrtc
-@@ -1 +1 @@
--Subproject commit 47ad4b691875b07c7fa963279a7debef34fefccc
-+Subproject commit cab8c572525e8675b5e917e9656bff21f9dd87f8
--- 
-2.43.0
+   config->rc_max_quantizer = 20;
+-  // Increase min QP to 12 for vp8 screen sharing; It reduces the encoding
+-  // bitrate on static content and thus helps reduce big overshoot on slide
+-  // change. This optimization is cited from libwebRTC.
+-  // third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc.
+-  // TODO(bugs.webrtc.org/15785): Set min quantizer for screen content in VP9.
+-  config->rc_min_quantizer = 2;
+-  if (profile == VP8PROFILE_ANY &&
+-      opts.content_hint == VideoEncoder::ContentHint::Screen) {
+-    config->rc_min_quantizer = 12;
+-  }
++  // Allow the encoder to use the full quality range so high bitrate callers
++  // can achieve near-lossless output. Downstream rate control still clamps if
++  // a platform restriction exists.
++  config->rc_min_quantizer = 0;
+   config->rc_resize_allowed = 0;
+   config->rc_undershoot_pct = 50;
+   config->rc_overshoot_pct = 50;

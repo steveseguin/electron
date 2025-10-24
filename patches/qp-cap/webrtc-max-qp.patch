@@ -1,31 +1,58 @@
-From cab8c572525e8675b5e917e9656bff21f9dd87f8 Mon Sep 17 00:00:00 2001
-From: Steve Seguin <steve@seguin.email>
-Date: Wed, 22 Oct 2025 20:53:18 -0400
-Subject: [PATCH] feat: lower default video max qp for higher quality
-
----
- media/base/media_constants.cc | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
 diff --git a/media/base/media_constants.cc b/media/base/media_constants.cc
-index 966ac39eba..47fe1cdb0e 100644
+index 47fe1cdb0e..72f6495305 100644
 --- a/media/base/media_constants.cc
 +++ b/media/base/media_constants.cc
-@@ -137,11 +137,11 @@ const char kAv1FmtpTier[] = "tier";
- 
+@@ -138,8 +138,8 @@ const char kAv1FmtpTier[] = "tier";
  const int kDefaultVideoMaxFramerate = 60;
  // Max encode quantizer for VP8/9 and AV1 encoders assuming libvpx/libaom API
--// range [0, 63]
--const int kDefaultVideoMaxQpVpx = 56;
--const int kDefaultVideoMaxQpAv1 = 52;
-+// range [0, 63], tuned for higher quality capture.
-+const int kDefaultVideoMaxQpVpx = 16;
-+const int kDefaultVideoMaxQpAv1 = 16;
+ // range [0, 63], tuned for higher quality capture.
+-const int kDefaultVideoMaxQpVpx = 16;
+-const int kDefaultVideoMaxQpAv1 = 16;
++const int kDefaultVideoMaxQpVpx = 20;
++const int kDefaultVideoMaxQpAv1 = 20;
  // Max encode quantizer for H264/5 assuming the bitstream range [0, 51].
--const int kDefaultVideoMaxQpH26x = 51;
-+const int kDefaultVideoMaxQpH26x = 20;
+ const int kDefaultVideoMaxQpH26x = 20;
  
- const size_t kConferenceMaxNumSpatialLayers = 3;
- const size_t kConferenceMaxNumTemporalLayers = 3;
--- 
-2.43.0
+diff --git a/modules/video_coding/codecs/av1/libaom_av1_encoder.cc b/modules/video_coding/codecs/av1/libaom_av1_encoder.cc
+index 14a84f9c61..fc395af166 100644
+--- a/modules/video_coding/codecs/av1/libaom_av1_encoder.cc
++++ b/modules/video_coding/codecs/av1/libaom_av1_encoder.cc
+@@ -69,8 +69,8 @@ namespace webrtc {
+ namespace {
+ 
+ // Encoder configuration parameters
+-constexpr int kMinQp = 10;
+-constexpr int kMinQindex = 40;  // Min qindex corresponding to kMinQp.
++constexpr int kMinQp = 0;
++constexpr int kMinQindex = 0;   // Min qindex corresponding to kMinQp.
+ constexpr int kUsageProfile = AOM_USAGE_REALTIME;
+ constexpr int kLowQindex = 145;   // Low qindex threshold for QP scaling.
+ constexpr int kHighQindex = 205;  // High qindex threshold for QP scaling.
+diff --git a/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc b/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc
+index 06bc5df6af..05e4deca17 100644
+--- a/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc
++++ b/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc
+@@ -629,8 +629,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
+   vpx_configs_[0].g_pass = VPX_RC_ONE_PASS;
+   // Handle resizing outside of libvpx.
+   vpx_configs_[0].rc_resize_allowed = 0;
+-  vpx_configs_[0].rc_min_quantizer =
+-      codec_.mode == VideoCodecMode::kScreensharing ? 12 : 2;
++  vpx_configs_[0].rc_min_quantizer = 0;
+   if (inst->qpMax >= vpx_configs_[0].rc_min_quantizer) {
+     qp_max_ = inst->qpMax;
+   }
+diff --git a/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc b/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc
+index 54681fdf80..40c77c48ea 100644
+--- a/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc
++++ b/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc
+@@ -677,8 +677,7 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
+   config_->rc_dropframe_thresh = codec_.GetFrameDropEnabled() ? 30 : 0;
+   config_->rc_end_usage = VPX_CBR;
+   config_->g_pass = VPX_RC_ONE_PASS;
+-  config_->rc_min_quantizer =
+-      codec_.mode == VideoCodecMode::kScreensharing ? 8 : 2;
++  config_->rc_min_quantizer = 0;
+   config_->rc_max_quantizer = 52;
+   config_->rc_undershoot_pct = 50;
+   config_->rc_overshoot_pct = 50;
