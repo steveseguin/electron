@@ -1,0 +1,5 @@
+@Subdir src/buildtools/win
+gn/gn/windows-amd64 git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab
+
+@Subdir src/third_party/devtools-frontend/src/third_party/esbuild
+infra/3pp/tools/esbuild/windows-amd64 version:3@0.25.1.chromium.2
