@@ -197,6 +197,7 @@ To publish release zips with platform-specific names, copy the archives:
 # Linux
 cd ~/electron-work/src
 cp out/Release/dist.zip out/Release/electron-v38.4.0-qp20-linux-x64.zip
+cp out/Release/dist.zip out/Release/electron-v38.4.0-linux-x64.zip
 ```
 
 ```powershell
@@ -204,6 +205,16 @@ cp out/Release/dist.zip out/Release/electron-v38.4.0-qp20-linux-x64.zip
 cd C:\electron-work-win\electron-work\src
 Copy-Item out\Release-win\dist.zip `
   out\Release-win\electron-v38.4.0-qp20-win32-x64.zip
+Copy-Item out\Release-win\dist.zip `
+  out\Release-win\electron-v38.4.0-win32-x64.zip
+```
+
+After the Windows copies complete, mirror the zips back into the WSL checkout so
+the checksum step can see them:
+
+```bash
+cp /mnt/c/electron-work-win*/electron-work/src/out/Release-win/electron-v38.4.0-*.zip \
+  ~/electron-work/src/out/Release-win/
 ```
 
 Once both archives exist under your WSL checkout, generate a checksum manifest
@@ -237,7 +248,19 @@ gh release create v38.4.0-qp20 \
   --notes "Custom build with encoder window clamped to 0-20 QP."
 ```
 
-Subsequent rebuilds can re-use `gh release upload` to replace the asset.
+Use `gh release upload` to attach the default-named archives so installers that
+do not set `ELECTRON_CUSTOM_FILENAME` continue to work:
+
+```bash
+cd ~/electron-work/src/electron
+gh release upload v38.4.0-qp20 \
+  ../out/Release/electron-v38.4.0-linux-x64.zip \
+  ../out/Release-win/electron-v38.4.0-win32-x64.zip \
+  --clobber
+```
+
+Subsequent rebuilds can re-use `gh release upload` (with `--clobber`) to replace
+any of the assets in-place.
 
 ### Fast rebuild loop after patch edits
 
@@ -314,6 +337,15 @@ Add the dependency to `package.json` so future installs stay pinned:
 > artefacts remain published under `v40.0.0-qp20`. Point
 > `ELECTRON_NIGHTLY_MIRROR` (and friends) at that tag if you still need that
 > nightly build; otherwise prefer the stable artefact above.
+
+If the installer continues to report checksum mismatches, clear the cached
+downloads and retry:
+
+```bash
+rm -rf ~/.cache/electron
+```
+
+On Windows, remove `%LOCALAPPDATA%\electron\Cache` before re-running `npm.cmd install`.
 
 ### Rebasing onto new upstream releases
 
