@@ -1,23 +1,26 @@
 diff --git a/media/base/media_constants.cc b/media/base/media_constants.cc
-index 47fe1cdb0e..72f6495305 100644
+index 966ac39eba..94bc7e8749 100644
 --- a/media/base/media_constants.cc
 +++ b/media/base/media_constants.cc
-@@ -138,8 +138,8 @@ const char kAv1FmtpTier[] = "tier";
+@@ -138,10 +138,10 @@ const char kAv1FmtpTier[] = "tier";
  const int kDefaultVideoMaxFramerate = 60;
  // Max encode quantizer for VP8/9 and AV1 encoders assuming libvpx/libaom API
- // range [0, 63], tuned for higher quality capture.
--const int kDefaultVideoMaxQpVpx = 16;
--const int kDefaultVideoMaxQpAv1 = 16;
+ // range [0, 63]
+-const int kDefaultVideoMaxQpVpx = 56;
+-const int kDefaultVideoMaxQpAv1 = 52;
 +const int kDefaultVideoMaxQpVpx = 20;
 +const int kDefaultVideoMaxQpAv1 = 20;
  // Max encode quantizer for H264/5 assuming the bitstream range [0, 51].
- const int kDefaultVideoMaxQpH26x = 20;
+-const int kDefaultVideoMaxQpH26x = 51;
++const int kDefaultVideoMaxQpH26x = 20;
  
+ const size_t kConferenceMaxNumSpatialLayers = 3;
+ const size_t kConferenceMaxNumTemporalLayers = 3;
 diff --git a/modules/video_coding/codecs/av1/libaom_av1_encoder.cc b/modules/video_coding/codecs/av1/libaom_av1_encoder.cc
-index 14a84f9c61..fc395af166 100644
+index 8c64a56eed..5e8ea2b1d9 100644
 --- a/modules/video_coding/codecs/av1/libaom_av1_encoder.cc
 +++ b/modules/video_coding/codecs/av1/libaom_av1_encoder.cc
-@@ -69,8 +69,8 @@ namespace webrtc {
+@@ -65,8 +65,8 @@ namespace webrtc {
  namespace {
  
  // Encoder configuration parameters
@@ -29,10 +32,10 @@ index 14a84f9c61..fc395af166 100644
  constexpr int kLowQindex = 145;   // Low qindex threshold for QP scaling.
  constexpr int kHighQindex = 205;  // High qindex threshold for QP scaling.
 diff --git a/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc b/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc
-index 06bc5df6af..05e4deca17 100644
+index 5446d837ec..8c3c0c86ce 100644
 --- a/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc
 +++ b/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc
-@@ -629,8 +629,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
+@@ -628,8 +628,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
    vpx_configs_[0].g_pass = VPX_RC_ONE_PASS;
    // Handle resizing outside of libvpx.
    vpx_configs_[0].rc_resize_allowed = 0;
@@ -43,16 +46,18 @@ index 06bc5df6af..05e4deca17 100644
      qp_max_ = inst->qpMax;
    }
 diff --git a/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc b/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc
-index 54681fdf80..40c77c48ea 100644
+index d941cd6f00..a2b05c2a92 100644
 --- a/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc
 +++ b/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc
-@@ -677,8 +677,7 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
+@@ -674,9 +674,8 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
    config_->rc_dropframe_thresh = codec_.GetFrameDropEnabled() ? 30 : 0;
    config_->rc_end_usage = VPX_CBR;
    config_->g_pass = VPX_RC_ONE_PASS;
 -  config_->rc_min_quantizer =
 -      codec_.mode == VideoCodecMode::kScreensharing ? 8 : 2;
+-  config_->rc_max_quantizer = 52;
 +  config_->rc_min_quantizer = 0;
-   config_->rc_max_quantizer = 52;
++  config_->rc_max_quantizer = 20;
    config_->rc_undershoot_pct = 50;
    config_->rc_overshoot_pct = 50;
+   config_->rc_buf_initial_sz = 500;

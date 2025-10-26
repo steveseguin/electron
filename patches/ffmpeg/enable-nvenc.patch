@@ -19,10 +19,10 @@ index 4a998334d4..c1b8ba6ce8 100644
    defines = [
      "HAVE_AV_CONFIG_H",
 diff --git a/chromium/config/Chrome/linux-noasm/x64/config.h b/chromium/config/Chrome/linux-noasm/x64/config.h
-index 40425ec857..caa7dfce1d 100644
+index 662a6b0eff..cd44a8f56d 100644
 --- a/chromium/config/Chrome/linux-noasm/x64/config.h
 +++ b/chromium/config/Chrome/linux-noasm/x64/config.h
-@@ -615,16 +615,16 @@
+@@ -612,16 +612,16 @@
  #define CONFIG_OPENCL 0
  #define CONFIG_AMF 0
  #define CONFIG_AUDIOTOOLBOX 0
@@ -43,10 +43,10 @@ index 40425ec857..caa7dfce1d 100644
  #define CONFIG_VDPAU 0
  #define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chrome/linux-noasm/x64/config_components.h b/chromium/config/Chrome/linux-noasm/x64/config_components.h
-index 6dd25c4177..027f9714c9 100644
+index 35c567dd78..788fa3476a 100644
 --- a/chromium/config/Chrome/linux-noasm/x64/config_components.h
 +++ b/chromium/config/Chrome/linux-noasm/x64/config_components.h
-@@ -868,7 +868,7 @@
+@@ -863,7 +863,7 @@
  #define CONFIG_AC3_MF_ENCODER 0
  #define CONFIG_H263_V4L2M2M_ENCODER 0
  #define CONFIG_AV1_MEDIACODEC_ENCODER 0
@@ -55,29 +55,29 @@ index 6dd25c4177..027f9714c9 100644
  #define CONFIG_AV1_QSV_ENCODER 0
  #define CONFIG_AV1_AMF_ENCODER 0
  #define CONFIG_AV1_MF_ENCODER 0
-@@ -877,7 +877,7 @@
+@@ -871,7 +871,7 @@
  #define CONFIG_LIBOPENH264_ENCODER 0
  #define CONFIG_H264_AMF_ENCODER 0
  #define CONFIG_H264_MF_ENCODER 0
 -#define CONFIG_H264_NVENC_ENCODER 0
 +#define CONFIG_H264_NVENC_ENCODER 1
- #define CONFIG_H264_OH_ENCODER 0
  #define CONFIG_H264_OMX_ENCODER 0
  #define CONFIG_H264_QSV_ENCODER 0
-@@ -889,7 +889,7 @@
+ #define CONFIG_H264_V4L2M2M_ENCODER 0
+@@ -882,7 +882,7 @@
  #define CONFIG_HEVC_D3D12VA_ENCODER 0
  #define CONFIG_HEVC_MEDIACODEC_ENCODER 0
  #define CONFIG_HEVC_MF_ENCODER 0
 -#define CONFIG_HEVC_NVENC_ENCODER 0
 +#define CONFIG_HEVC_NVENC_ENCODER 1
- #define CONFIG_HEVC_OH_ENCODER 0
  #define CONFIG_HEVC_QSV_ENCODER 0
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
+ #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/chromium/config/Chrome/linux/x64/config.asm b/chromium/config/Chrome/linux/x64/config.asm
-index 99fb2d3ef3..721a436cb7 100644
+index 0cf0e9c0ed..5cb40a78fc 100644
 --- a/chromium/config/Chrome/linux/x64/config.asm
 +++ b/chromium/config/Chrome/linux/x64/config.asm
-@@ -601,16 +601,16 @@
+@@ -598,16 +598,16 @@
  %define CONFIG_OPENCL 0
  %define CONFIG_AMF 0
  %define CONFIG_AUDIOTOOLBOX 0
@@ -98,10 +98,10 @@ index 99fb2d3ef3..721a436cb7 100644
  %define CONFIG_VDPAU 0
  %define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chrome/linux/x64/config.h b/chromium/config/Chrome/linux/x64/config.h
-index 6a321cdaad..9bd8117054 100644
+index ae741786fd..5f19be3689 100644
 --- a/chromium/config/Chrome/linux/x64/config.h
 +++ b/chromium/config/Chrome/linux/x64/config.h
-@@ -615,16 +615,16 @@
+@@ -612,16 +612,16 @@
  #define CONFIG_OPENCL 0
  #define CONFIG_AMF 0
  #define CONFIG_AUDIOTOOLBOX 0
@@ -122,10 +122,10 @@ index 6a321cdaad..9bd8117054 100644
  #define CONFIG_VDPAU 0
  #define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chrome/linux/x64/config_components.h b/chromium/config/Chrome/linux/x64/config_components.h
-index 6dd25c4177..027f9714c9 100644
+index 35c567dd78..788fa3476a 100644
 --- a/chromium/config/Chrome/linux/x64/config_components.h
 +++ b/chromium/config/Chrome/linux/x64/config_components.h
-@@ -868,7 +868,7 @@
+@@ -863,7 +863,7 @@
  #define CONFIG_AC3_MF_ENCODER 0
  #define CONFIG_H263_V4L2M2M_ENCODER 0
  #define CONFIG_AV1_MEDIACODEC_ENCODER 0
@@ -134,24 +134,24 @@ index 6dd25c4177..027f9714c9 100644
  #define CONFIG_AV1_QSV_ENCODER 0
  #define CONFIG_AV1_AMF_ENCODER 0
  #define CONFIG_AV1_MF_ENCODER 0
-@@ -877,7 +877,7 @@
+@@ -871,7 +871,7 @@
  #define CONFIG_LIBOPENH264_ENCODER 0
  #define CONFIG_H264_AMF_ENCODER 0
  #define CONFIG_H264_MF_ENCODER 0
 -#define CONFIG_H264_NVENC_ENCODER 0
 +#define CONFIG_H264_NVENC_ENCODER 1
- #define CONFIG_H264_OH_ENCODER 0
  #define CONFIG_H264_OMX_ENCODER 0
  #define CONFIG_H264_QSV_ENCODER 0
-@@ -889,7 +889,7 @@
+ #define CONFIG_H264_V4L2M2M_ENCODER 0
+@@ -882,7 +882,7 @@
  #define CONFIG_HEVC_D3D12VA_ENCODER 0
  #define CONFIG_HEVC_MEDIACODEC_ENCODER 0
  #define CONFIG_HEVC_MF_ENCODER 0
 -#define CONFIG_HEVC_NVENC_ENCODER 0
 +#define CONFIG_HEVC_NVENC_ENCODER 1
- #define CONFIG_HEVC_OH_ENCODER 0
  #define CONFIG_HEVC_QSV_ENCODER 0
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
+ #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/chromium/config/Chrome/win-msvc/x64/config.asm b/chromium/config/Chrome/win-msvc/x64/config.asm
 index 49d66ac57d..fac173ba27 100644
 --- a/chromium/config/Chrome/win-msvc/x64/config.asm
@@ -218,10 +218,10 @@ index 359682176a..31181315e5 100644
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
  #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/chromium/config/Chrome/win/x64/config.asm b/chromium/config/Chrome/win/x64/config.asm
-index c089dd47b9..4d43b35c6b 100644
+index 83946790a8..62a09928ac 100644
 --- a/chromium/config/Chrome/win/x64/config.asm
 +++ b/chromium/config/Chrome/win/x64/config.asm
-@@ -601,16 +601,16 @@
+@@ -598,16 +598,16 @@
  %define CONFIG_OPENCL 0
  %define CONFIG_AMF 0
  %define CONFIG_AUDIOTOOLBOX 0
@@ -242,10 +242,10 @@ index c089dd47b9..4d43b35c6b 100644
  %define CONFIG_VDPAU 0
  %define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chrome/win/x64/config.h b/chromium/config/Chrome/win/x64/config.h
-index 2b5a6f3c33..8d2eb646ec 100644
+index 727d6bef39..661481f482 100644
 --- a/chromium/config/Chrome/win/x64/config.h
 +++ b/chromium/config/Chrome/win/x64/config.h
-@@ -615,16 +615,16 @@
+@@ -612,16 +612,16 @@
  #define CONFIG_OPENCL 0
  #define CONFIG_AMF 0
  #define CONFIG_AUDIOTOOLBOX 0
@@ -266,10 +266,10 @@ index 2b5a6f3c33..8d2eb646ec 100644
  #define CONFIG_VDPAU 0
  #define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chrome/win/x64/config_components.h b/chromium/config/Chrome/win/x64/config_components.h
-index 6dd25c4177..027f9714c9 100644
+index 35c567dd78..788fa3476a 100644
 --- a/chromium/config/Chrome/win/x64/config_components.h
 +++ b/chromium/config/Chrome/win/x64/config_components.h
-@@ -868,7 +868,7 @@
+@@ -863,7 +863,7 @@
  #define CONFIG_AC3_MF_ENCODER 0
  #define CONFIG_H263_V4L2M2M_ENCODER 0
  #define CONFIG_AV1_MEDIACODEC_ENCODER 0
@@ -278,29 +278,29 @@ index 6dd25c4177..027f9714c9 100644
  #define CONFIG_AV1_QSV_ENCODER 0
  #define CONFIG_AV1_AMF_ENCODER 0
  #define CONFIG_AV1_MF_ENCODER 0
-@@ -877,7 +877,7 @@
+@@ -871,7 +871,7 @@
  #define CONFIG_LIBOPENH264_ENCODER 0
  #define CONFIG_H264_AMF_ENCODER 0
  #define CONFIG_H264_MF_ENCODER 0
 -#define CONFIG_H264_NVENC_ENCODER 0
 +#define CONFIG_H264_NVENC_ENCODER 1
- #define CONFIG_H264_OH_ENCODER 0
  #define CONFIG_H264_OMX_ENCODER 0
  #define CONFIG_H264_QSV_ENCODER 0
-@@ -889,7 +889,7 @@
+ #define CONFIG_H264_V4L2M2M_ENCODER 0
+@@ -882,7 +882,7 @@
  #define CONFIG_HEVC_D3D12VA_ENCODER 0
  #define CONFIG_HEVC_MEDIACODEC_ENCODER 0
  #define CONFIG_HEVC_MF_ENCODER 0
 -#define CONFIG_HEVC_NVENC_ENCODER 0
 +#define CONFIG_HEVC_NVENC_ENCODER 1
- #define CONFIG_HEVC_OH_ENCODER 0
  #define CONFIG_HEVC_QSV_ENCODER 0
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
+ #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/chromium/config/Chromium/linux-noasm/x64/config.h b/chromium/config/Chromium/linux-noasm/x64/config.h
-index 1c5563f64b..47aede2e81 100644
+index 36bd65750f..0c70a2cf03 100644
 --- a/chromium/config/Chromium/linux-noasm/x64/config.h
 +++ b/chromium/config/Chromium/linux-noasm/x64/config.h
-@@ -615,16 +615,16 @@
+@@ -612,16 +612,16 @@
  #define CONFIG_OPENCL 0
  #define CONFIG_AMF 0
  #define CONFIG_AUDIOTOOLBOX 0
@@ -321,10 +321,10 @@ index 1c5563f64b..47aede2e81 100644
  #define CONFIG_VDPAU 0
  #define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chromium/linux-noasm/x64/config_components.h b/chromium/config/Chromium/linux-noasm/x64/config_components.h
-index 4108b4962d..2c2a8f1701 100644
+index ea2f2c52d0..1585e8a6eb 100644
 --- a/chromium/config/Chromium/linux-noasm/x64/config_components.h
 +++ b/chromium/config/Chromium/linux-noasm/x64/config_components.h
-@@ -868,7 +868,7 @@
+@@ -863,7 +863,7 @@
  #define CONFIG_AC3_MF_ENCODER 0
  #define CONFIG_H263_V4L2M2M_ENCODER 0
  #define CONFIG_AV1_MEDIACODEC_ENCODER 0
@@ -333,29 +333,29 @@ index 4108b4962d..2c2a8f1701 100644
  #define CONFIG_AV1_QSV_ENCODER 0
  #define CONFIG_AV1_AMF_ENCODER 0
  #define CONFIG_AV1_MF_ENCODER 0
-@@ -877,7 +877,7 @@
+@@ -871,7 +871,7 @@
  #define CONFIG_LIBOPENH264_ENCODER 0
  #define CONFIG_H264_AMF_ENCODER 0
  #define CONFIG_H264_MF_ENCODER 0
 -#define CONFIG_H264_NVENC_ENCODER 0
 +#define CONFIG_H264_NVENC_ENCODER 1
- #define CONFIG_H264_OH_ENCODER 0
  #define CONFIG_H264_OMX_ENCODER 0
  #define CONFIG_H264_QSV_ENCODER 0
-@@ -889,7 +889,7 @@
+ #define CONFIG_H264_V4L2M2M_ENCODER 0
+@@ -882,7 +882,7 @@
  #define CONFIG_HEVC_D3D12VA_ENCODER 0
  #define CONFIG_HEVC_MEDIACODEC_ENCODER 0
  #define CONFIG_HEVC_MF_ENCODER 0
 -#define CONFIG_HEVC_NVENC_ENCODER 0
 +#define CONFIG_HEVC_NVENC_ENCODER 1
- #define CONFIG_HEVC_OH_ENCODER 0
  #define CONFIG_HEVC_QSV_ENCODER 0
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
+ #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/chromium/config/Chromium/linux/x64/config.asm b/chromium/config/Chromium/linux/x64/config.asm
-index 540a4829ba..3c39fb1459 100644
+index 146d0540ff..f68415ec0b 100644
 --- a/chromium/config/Chromium/linux/x64/config.asm
 +++ b/chromium/config/Chromium/linux/x64/config.asm
-@@ -601,16 +601,16 @@
+@@ -598,16 +598,16 @@
  %define CONFIG_OPENCL 0
  %define CONFIG_AMF 0
  %define CONFIG_AUDIOTOOLBOX 0
@@ -376,10 +376,10 @@ index 540a4829ba..3c39fb1459 100644
  %define CONFIG_VDPAU 0
  %define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chromium/linux/x64/config.h b/chromium/config/Chromium/linux/x64/config.h
-index 2b82b1936a..0f6a1acc80 100644
+index 687df0f1b9..80f6abf33e 100644
 --- a/chromium/config/Chromium/linux/x64/config.h
 +++ b/chromium/config/Chromium/linux/x64/config.h
-@@ -615,16 +615,16 @@
+@@ -612,16 +612,16 @@
  #define CONFIG_OPENCL 0
  #define CONFIG_AMF 0
  #define CONFIG_AUDIOTOOLBOX 0
@@ -400,10 +400,10 @@ index 2b82b1936a..0f6a1acc80 100644
  #define CONFIG_VDPAU 0
  #define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chromium/linux/x64/config_components.h b/chromium/config/Chromium/linux/x64/config_components.h
-index 4108b4962d..2c2a8f1701 100644
+index ea2f2c52d0..1585e8a6eb 100644
 --- a/chromium/config/Chromium/linux/x64/config_components.h
 +++ b/chromium/config/Chromium/linux/x64/config_components.h
-@@ -868,7 +868,7 @@
+@@ -863,7 +863,7 @@
  #define CONFIG_AC3_MF_ENCODER 0
  #define CONFIG_H263_V4L2M2M_ENCODER 0
  #define CONFIG_AV1_MEDIACODEC_ENCODER 0
@@ -412,24 +412,24 @@ index 4108b4962d..2c2a8f1701 100644
  #define CONFIG_AV1_QSV_ENCODER 0
  #define CONFIG_AV1_AMF_ENCODER 0
  #define CONFIG_AV1_MF_ENCODER 0
-@@ -877,7 +877,7 @@
+@@ -871,7 +871,7 @@
  #define CONFIG_LIBOPENH264_ENCODER 0
  #define CONFIG_H264_AMF_ENCODER 0
  #define CONFIG_H264_MF_ENCODER 0
 -#define CONFIG_H264_NVENC_ENCODER 0
 +#define CONFIG_H264_NVENC_ENCODER 1
- #define CONFIG_H264_OH_ENCODER 0
  #define CONFIG_H264_OMX_ENCODER 0
  #define CONFIG_H264_QSV_ENCODER 0
-@@ -889,7 +889,7 @@
+ #define CONFIG_H264_V4L2M2M_ENCODER 0
+@@ -882,7 +882,7 @@
  #define CONFIG_HEVC_D3D12VA_ENCODER 0
  #define CONFIG_HEVC_MEDIACODEC_ENCODER 0
  #define CONFIG_HEVC_MF_ENCODER 0
 -#define CONFIG_HEVC_NVENC_ENCODER 0
 +#define CONFIG_HEVC_NVENC_ENCODER 1
- #define CONFIG_HEVC_OH_ENCODER 0
  #define CONFIG_HEVC_QSV_ENCODER 0
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
+ #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/chromium/config/Chromium/win-msvc/x64/config.asm b/chromium/config/Chromium/win-msvc/x64/config.asm
 index 3c9bd63728..07e558a899 100644
 --- a/chromium/config/Chromium/win-msvc/x64/config.asm
@@ -496,10 +496,10 @@ index 89d69e4734..b62ecfc5f0 100644
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
  #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/chromium/config/Chromium/win/x64/config.asm b/chromium/config/Chromium/win/x64/config.asm
-index 9c054f13bd..651dceb1aa 100644
+index e2e700ed43..0b2de80f8d 100644
 --- a/chromium/config/Chromium/win/x64/config.asm
 +++ b/chromium/config/Chromium/win/x64/config.asm
-@@ -601,16 +601,16 @@
+@@ -598,16 +598,16 @@
  %define CONFIG_OPENCL 0
  %define CONFIG_AMF 0
  %define CONFIG_AUDIOTOOLBOX 0
@@ -520,10 +520,10 @@ index 9c054f13bd..651dceb1aa 100644
  %define CONFIG_VDPAU 0
  %define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chromium/win/x64/config.h b/chromium/config/Chromium/win/x64/config.h
-index f25c0dfcad..9bac49bb48 100644
+index 3bbacd0abb..0b78b8c07a 100644
 --- a/chromium/config/Chromium/win/x64/config.h
 +++ b/chromium/config/Chromium/win/x64/config.h
-@@ -615,16 +615,16 @@
+@@ -612,16 +612,16 @@
  #define CONFIG_OPENCL 0
  #define CONFIG_AMF 0
  #define CONFIG_AUDIOTOOLBOX 0
@@ -544,10 +544,10 @@ index f25c0dfcad..9bac49bb48 100644
  #define CONFIG_VDPAU 0
  #define CONFIG_VIDEOTOOLBOX 0
 diff --git a/chromium/config/Chromium/win/x64/config_components.h b/chromium/config/Chromium/win/x64/config_components.h
-index 4108b4962d..2c2a8f1701 100644
+index ea2f2c52d0..1585e8a6eb 100644
 --- a/chromium/config/Chromium/win/x64/config_components.h
 +++ b/chromium/config/Chromium/win/x64/config_components.h
-@@ -868,7 +868,7 @@
+@@ -863,7 +863,7 @@
  #define CONFIG_AC3_MF_ENCODER 0
  #define CONFIG_H263_V4L2M2M_ENCODER 0
  #define CONFIG_AV1_MEDIACODEC_ENCODER 0
@@ -556,24 +556,24 @@ index 4108b4962d..2c2a8f1701 100644
  #define CONFIG_AV1_QSV_ENCODER 0
  #define CONFIG_AV1_AMF_ENCODER 0
  #define CONFIG_AV1_MF_ENCODER 0
-@@ -877,7 +877,7 @@
+@@ -871,7 +871,7 @@
  #define CONFIG_LIBOPENH264_ENCODER 0
  #define CONFIG_H264_AMF_ENCODER 0
  #define CONFIG_H264_MF_ENCODER 0
 -#define CONFIG_H264_NVENC_ENCODER 0
 +#define CONFIG_H264_NVENC_ENCODER 1
- #define CONFIG_H264_OH_ENCODER 0
  #define CONFIG_H264_OMX_ENCODER 0
  #define CONFIG_H264_QSV_ENCODER 0
-@@ -889,7 +889,7 @@
+ #define CONFIG_H264_V4L2M2M_ENCODER 0
+@@ -882,7 +882,7 @@
  #define CONFIG_HEVC_D3D12VA_ENCODER 0
  #define CONFIG_HEVC_MEDIACODEC_ENCODER 0
  #define CONFIG_HEVC_MF_ENCODER 0
 -#define CONFIG_HEVC_NVENC_ENCODER 0
 +#define CONFIG_HEVC_NVENC_ENCODER 1
- #define CONFIG_HEVC_OH_ENCODER 0
  #define CONFIG_HEVC_QSV_ENCODER 0
  #define CONFIG_HEVC_V4L2M2M_ENCODER 0
+ #define CONFIG_HEVC_VAAPI_ENCODER 0
 diff --git a/ffmpeg_generated.gni b/ffmpeg_generated.gni
 index 174173e6b8..9807d4be1e 100644
 --- a/ffmpeg_generated.gni
@@ -597,6 +597,111 @@ index 174173e6b8..9807d4be1e 100644
      "libavutil/hwcontext_stub.c",
      "libavutil/iamf.c",
      "libavutil/integer.c",
+diff --git a/libavcodec/nvenc.c b/libavcodec/nvenc.c
+index d81be00314..21ca5e850d 100644
+--- a/libavcodec/nvenc.c
++++ b/libavcodec/nvenc.c
+@@ -1267,14 +1267,19 @@ static av_cold int nvenc_setup_h264_config(AVCodecContext *avctx)
+     const AVPixFmtDescriptor *pixdesc = av_pix_fmt_desc_get(ctx->data_pix_fmt);
+ 
+     if ((pixdesc->flags & AV_PIX_FMT_FLAG_RGB) && !IS_GBRP(ctx->data_pix_fmt)) {
+-        vui->colourMatrix = AVCOL_SPC_BT470BG;
+-        vui->colourPrimaries = avctx->color_primaries;
+-        vui->transferCharacteristics = avctx->color_trc;
++        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)AVCOL_SPC_BT470BG;
++        vui->colourPrimaries =
++            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
++        vui->transferCharacteristics =
++            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
+         vui->videoFullRangeFlag = 0;
+     } else {
+-        vui->colourMatrix = IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace;
+-        vui->colourPrimaries = avctx->color_primaries;
+-        vui->transferCharacteristics = avctx->color_trc;
++        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)(
++            IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace);
++        vui->colourPrimaries =
++            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
++        vui->transferCharacteristics =
++            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
+         vui->videoFullRangeFlag = (avctx->color_range == AVCOL_RANGE_JPEG
+             || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ420P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ422P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ444P);
+     }
+@@ -1458,14 +1463,19 @@ static av_cold int nvenc_setup_hevc_config(AVCodecContext *avctx)
+     const AVPixFmtDescriptor *pixdesc = av_pix_fmt_desc_get(ctx->data_pix_fmt);
+ 
+     if ((pixdesc->flags & AV_PIX_FMT_FLAG_RGB) && !IS_GBRP(ctx->data_pix_fmt)) {
+-        vui->colourMatrix = AVCOL_SPC_BT470BG;
+-        vui->colourPrimaries = avctx->color_primaries;
+-        vui->transferCharacteristics = avctx->color_trc;
++        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)AVCOL_SPC_BT470BG;
++        vui->colourPrimaries =
++            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
++        vui->transferCharacteristics =
++            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
+         vui->videoFullRangeFlag = 0;
+     } else {
+-        vui->colourMatrix = IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace;
+-        vui->colourPrimaries = avctx->color_primaries;
+-        vui->transferCharacteristics = avctx->color_trc;
++        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)(
++            IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace);
++        vui->colourPrimaries =
++            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
++        vui->transferCharacteristics =
++            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
+         vui->videoFullRangeFlag = (avctx->color_range == AVCOL_RANGE_JPEG
+             || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ420P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ422P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ444P);
+     }
+@@ -1656,14 +1666,20 @@ static av_cold int nvenc_setup_av1_config(AVCodecContext *avctx)
+     const AVPixFmtDescriptor *pixdesc = av_pix_fmt_desc_get(ctx->data_pix_fmt);
+ 
+     if ((pixdesc->flags & AV_PIX_FMT_FLAG_RGB) && !IS_GBRP(ctx->data_pix_fmt)) {
+-        av1->matrixCoefficients = AVCOL_SPC_BT470BG;
+-        av1->colorPrimaries = avctx->color_primaries;
+-        av1->transferCharacteristics = avctx->color_trc;
++        av1->matrixCoefficients =
++            (NV_ENC_VUI_MATRIX_COEFFS)AVCOL_SPC_BT470BG;
++        av1->colorPrimaries =
++            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
++        av1->transferCharacteristics =
++            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
+         av1->colorRange = 0;
+     } else {
+-        av1->matrixCoefficients = IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace;
+-        av1->colorPrimaries = avctx->color_primaries;
+-        av1->transferCharacteristics = avctx->color_trc;
++        av1->matrixCoefficients = (NV_ENC_VUI_MATRIX_COEFFS)(
++            IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace);
++        av1->colorPrimaries =
++            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
++        av1->transferCharacteristics =
++            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
+         av1->colorRange = (avctx->color_range == AVCOL_RANGE_JPEG
+             || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ420P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ422P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ444P);
+     }
+diff --git a/libavutil/hwcontext_cuda.h b/libavutil/hwcontext_cuda.h
+index cbad434fea..e489d03f14 100644
+--- a/libavutil/hwcontext_cuda.h
++++ b/libavutil/hwcontext_cuda.h
+@@ -21,7 +21,16 @@
+ #define AVUTIL_HWCONTEXT_CUDA_H
+ 
+ #ifndef CUDA_VERSION
+-#include <cuda.h>
++#  if defined(__has_include)
++#    if __has_include(<cuda.h>)
++#      include <cuda.h>
++#    else
++#      include <ffnvcodec/dynlink_cuda.h>
++#      define CUDA_VERSION 0
++#    endif
++#  else
++#    include <cuda.h>
++#  endif
+ #endif
+ 
+ #include "pixfmt.h"
 diff --git a/ffnvcodec/README.chromium b/ffnvcodec/README.chromium
 new file mode 100644
 index 0000000000..bc0e9941e5
@@ -8089,108 +8194,3 @@ index 0000000000..894b215be7
 +
 +#endif
 +
-diff --git a/libavcodec/nvenc.c b/libavcodec/nvenc.c
-index d81be00314..21ca5e850d 100644
---- a/libavcodec/nvenc.c
-+++ b/libavcodec/nvenc.c
-@@ -1267,14 +1267,19 @@ static av_cold int nvenc_setup_h264_config(AVCodecContext *avctx)
-     const AVPixFmtDescriptor *pixdesc = av_pix_fmt_desc_get(ctx->data_pix_fmt);
- 
-     if ((pixdesc->flags & AV_PIX_FMT_FLAG_RGB) && !IS_GBRP(ctx->data_pix_fmt)) {
--        vui->colourMatrix = AVCOL_SPC_BT470BG;
--        vui->colourPrimaries = avctx->color_primaries;
--        vui->transferCharacteristics = avctx->color_trc;
-+        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)AVCOL_SPC_BT470BG;
-+        vui->colourPrimaries =
-+            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
-+        vui->transferCharacteristics =
-+            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
-         vui->videoFullRangeFlag = 0;
-     } else {
--        vui->colourMatrix = IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace;
--        vui->colourPrimaries = avctx->color_primaries;
--        vui->transferCharacteristics = avctx->color_trc;
-+        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)(
-+            IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace);
-+        vui->colourPrimaries =
-+            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
-+        vui->transferCharacteristics =
-+            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
-         vui->videoFullRangeFlag = (avctx->color_range == AVCOL_RANGE_JPEG
-             || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ420P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ422P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ444P);
-     }
-@@ -1458,14 +1463,19 @@ static av_cold int nvenc_setup_hevc_config(AVCodecContext *avctx)
-     const AVPixFmtDescriptor *pixdesc = av_pix_fmt_desc_get(ctx->data_pix_fmt);
- 
-     if ((pixdesc->flags & AV_PIX_FMT_FLAG_RGB) && !IS_GBRP(ctx->data_pix_fmt)) {
--        vui->colourMatrix = AVCOL_SPC_BT470BG;
--        vui->colourPrimaries = avctx->color_primaries;
--        vui->transferCharacteristics = avctx->color_trc;
-+        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)AVCOL_SPC_BT470BG;
-+        vui->colourPrimaries =
-+            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
-+        vui->transferCharacteristics =
-+            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
-         vui->videoFullRangeFlag = 0;
-     } else {
--        vui->colourMatrix = IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace;
--        vui->colourPrimaries = avctx->color_primaries;
--        vui->transferCharacteristics = avctx->color_trc;
-+        vui->colourMatrix = (NV_ENC_VUI_MATRIX_COEFFS)(
-+            IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace);
-+        vui->colourPrimaries =
-+            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
-+        vui->transferCharacteristics =
-+            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
-         vui->videoFullRangeFlag = (avctx->color_range == AVCOL_RANGE_JPEG
-             || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ420P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ422P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ444P);
-     }
-@@ -1656,14 +1666,20 @@ static av_cold int nvenc_setup_av1_config(AVCodecContext *avctx)
-     const AVPixFmtDescriptor *pixdesc = av_pix_fmt_desc_get(ctx->data_pix_fmt);
- 
-     if ((pixdesc->flags & AV_PIX_FMT_FLAG_RGB) && !IS_GBRP(ctx->data_pix_fmt)) {
--        av1->matrixCoefficients = AVCOL_SPC_BT470BG;
--        av1->colorPrimaries = avctx->color_primaries;
--        av1->transferCharacteristics = avctx->color_trc;
-+        av1->matrixCoefficients =
-+            (NV_ENC_VUI_MATRIX_COEFFS)AVCOL_SPC_BT470BG;
-+        av1->colorPrimaries =
-+            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
-+        av1->transferCharacteristics =
-+            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
-         av1->colorRange = 0;
-     } else {
--        av1->matrixCoefficients = IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace;
--        av1->colorPrimaries = avctx->color_primaries;
--        av1->transferCharacteristics = avctx->color_trc;
-+        av1->matrixCoefficients = (NV_ENC_VUI_MATRIX_COEFFS)(
-+            IS_GBRP(ctx->data_pix_fmt) ? AVCOL_SPC_RGB : avctx->colorspace);
-+        av1->colorPrimaries =
-+            (NV_ENC_VUI_COLOR_PRIMARIES)avctx->color_primaries;
-+        av1->transferCharacteristics =
-+            (NV_ENC_VUI_TRANSFER_CHARACTERISTIC)avctx->color_trc;
-         av1->colorRange = (avctx->color_range == AVCOL_RANGE_JPEG
-             || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ420P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ422P || ctx->data_pix_fmt == AV_PIX_FMT_YUVJ444P);
-     }
-diff --git a/libavutil/hwcontext_cuda.h b/libavutil/hwcontext_cuda.h
-index cbad434fea..e489d03f14 100644
---- a/libavutil/hwcontext_cuda.h
-+++ b/libavutil/hwcontext_cuda.h
-@@ -21,7 +21,16 @@
- #define AVUTIL_HWCONTEXT_CUDA_H
- 
- #ifndef CUDA_VERSION
--#include <cuda.h>
-+#  if defined(__has_include)
-+#    if __has_include(<cuda.h>)
-+#      include <cuda.h>
-+#    else
-+#      include <ffnvcodec/dynlink_cuda.h>
-+#      define CUDA_VERSION 0
-+#    endif
-+#  else
-+#    include <cuda.h>
-+#  endif
- #endif
- 
- #include "pixfmt.h"

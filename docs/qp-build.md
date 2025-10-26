@@ -196,14 +196,27 @@ To publish release zips with platform-specific names, copy the archives:
 ```bash
 # Linux
 cd ~/electron-work/src
-cp out/Release/dist.zip out/Release/electron-v40.0.0-qp20-linux-x64.zip
+cp out/Release/dist.zip out/Release/electron-v38.4.0-qp20-linux-x64.zip
 ```
 
 ```powershell
 # Windows
 cd C:\electron-work-win\electron-work\src
 Copy-Item out\Release-win\dist.zip `
-  out\Release-win\electron-v40.0.0-qp20-win32-x64.zip
+  out\Release-win\electron-v38.4.0-qp20-win32-x64.zip
+```
+
+Once both archives exist under your WSL checkout, generate a checksum manifest
+with binary markers so npm's downloader accepts it:
+
+```bash
+cd ~/electron-work/src
+sha256sum --binary \
+  out/Release/electron-v38.4.0-qp20-linux-x64.zip \
+  out/Release/electron-v38.4.0-linux-x64.zip \
+  out/Release-win/electron-v38.4.0-qp20-win32-x64.zip \
+  out/Release-win/electron-v38.4.0-win32-x64.zip \
+  | awk '{print $1 " *" $2}' > out/Release/SHASUMS256.txt
 ```
 
 > **NVENC runtime:** Before zipping, copy the redistributable `nvEncodeAPI64.dll`
@@ -216,10 +229,11 @@ Copy-Item out\Release-win\dist.zip `
 
 ```bash
 cd ~/electron-work/src/electron
-gh release create v40.0.0-qp20 \
-  ../out/Release/electron-v40.0.0-qp20-linux-x64.zip \
-  ../out/Release-win/electron-v40.0.0-qp20-win32-x64.zip \
-  --title "Electron v40.0.0-qp20 (Lossless-cap build)" \
+gh release create v38.4.0-qp20 \
+  ../out/Release/electron-v38.4.0-qp20-linux-x64.zip \
+  ../out/Release-win/electron-v38.4.0-qp20-win32-x64.zip \
+  ../out/Release/SHASUMS256.txt \
+  --title "Electron v38.4.0-qp20 (Lossless-cap build)" \
   --notes "Custom build with encoder window clamped to 0-20 QP."
 ```
 
@@ -260,30 +274,30 @@ encoder changes without re-downloading Chromium:
 
 ### Wiring the build into npm
 
-Consumers can point `electron-nightly` downloads at the GitHub release by
-exporting the following variables before `npm install`:
+Consumers can point `electron@38.4.0` at the GitHub release by exporting the
+following variables before `npm install`:
 
 ```bash
-export ELECTRON_NIGHTLY_MIRROR="https://github.com/steveseguin/electron/releases/download/"
-export ELECTRON_CUSTOM_DIR="v40.0.0-qp20"
+export ELECTRON_MIRROR="https://github.com/steveseguin/electron/releases/download/"
+export ELECTRON_CUSTOM_DIR="v38.4.0-qp20"
 export electron_use_remote_checksums=1
-npm install --save-dev electron-nightly@40.0.0-nightly.20251020
+npm install --save-dev electron@38.4.0
 ```
 
 > Our release ships a `SHASUMS256.txt` alongside the ZIPs so checksum
 > verification succeeds once `electron_use_remote_checksums=1` is set. If you
 > prefer to pull the `*-qp20-*.zip` filenames instead of the upstream naming,
-> add `ELECTRON_CUSTOM_FILENAME="electron-v40.0.0-qp20-linux-x64.zip"` (Windows
+> add `ELECTRON_CUSTOM_FILENAME="electron-v38.4.0-qp20-linux-x64.zip"` (Windows
 > users should pick the `win32-x64` variant).
 
 On Windows, the same flow can run inside `cmd` or PowerShell:
 
 ```powershell
 Set-Location C:\path\to\app
-$env:ELECTRON_NIGHTLY_MIRROR = "https://github.com/steveseguin/electron/releases/download/"
-$env:ELECTRON_CUSTOM_DIR = "v40.0.0-qp20"
+$env:ELECTRON_MIRROR = "https://github.com/steveseguin/electron/releases/download/"
+$env:ELECTRON_CUSTOM_DIR = "v38.4.0-qp20"
 $env:electron_use_remote_checksums = "1"
-npm.cmd install --save-dev electron-nightly@40.0.0-nightly.20251020
+npm.cmd install --save-dev electron@38.4.0
 ```
 
 Add the dependency to `package.json` so future installs stay pinned:
@@ -291,10 +305,15 @@ Add the dependency to `package.json` so future installs stay pinned:
 ```jsonc
 {
   "devDependencies": {
-    "electron-nightly": "40.0.0-nightly.20251020"
+    "electron": "38.4.0"
   }
 }
 ```
+
+> **Nightly consumers:** The previous `electron-nightly@40.0.0-nightly.20251020`
+> artefacts remain published under `v40.0.0-qp20`. Point
+> `ELECTRON_NIGHTLY_MIRROR` (and friends) at that tag if you still need that
+> nightly build; otherwise prefer the stable artefact above.
 
 ### Rebasing onto new upstream releases
 
