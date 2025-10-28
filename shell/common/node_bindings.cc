@@ -917,9 +917,11 @@ void NodeBindings::UvRunOnce() {
   // policy in the renderer - switch to `kExplicit` and then drop back to the
   // previous policy value.
   v8::MicrotaskQueue* microtask_queue = env->context()->GetMicrotaskQueue();
-  auto old_policy = microtask_queue->microtasks_policy();
-  DCHECK_EQ(microtask_queue->GetMicrotasksScopeDepth(), 0);
-  microtask_queue->set_microtasks_policy(v8::MicrotasksPolicy::kExplicit);
+  v8::Isolate* isolate = env->isolate();
+  auto old_policy = isolate->GetMicrotasksPolicy();
+  if (microtask_queue)
+    DCHECK_EQ(microtask_queue->GetMicrotasksScopeDepth(), 0);
+  isolate->SetMicrotasksPolicy(v8::MicrotasksPolicy::kExplicit);
 
   if (browser_env_ != BrowserEnvironment::kBrowser)
     TRACE_EVENT_BEGIN0("devtools.timeline", "FunctionCall");
@@ -930,7 +932,7 @@ void NodeBindings::UvRunOnce() {
   if (browser_env_ != BrowserEnvironment::kBrowser)
     TRACE_EVENT_END0("devtools.timeline", "FunctionCall");
 
-  microtask_queue->set_microtasks_policy(old_policy);
+  isolate->SetMicrotasksPolicy(old_policy);
 
   if (r == 0)
     base::RunLoop().QuitWhenIdle();  // Quit from uv.

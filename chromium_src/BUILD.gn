@@ -74,6 +74,7 @@ static_library("chrome") {
     "//chrome/browser/picture_in_picture/scoped_picture_in_picture_occlusion_observation.h",
     "//chrome/browser/platform_util.cc",
     "//chrome/browser/platform_util.h",
+    "//chrome/browser/profiles/profile.cc",
     "//chrome/browser/predictors/preconnect_manager.cc",
     "//chrome/browser/predictors/preconnect_manager.h",
     "//chrome/browser/predictors/predictors_features.cc",
@@ -434,10 +435,6 @@ source_set("chrome_spellchecker") {
 
   if (enable_builtin_spellchecker) {
     sources += [
-      "//chrome/browser/profiles/profile_keyed_service_factory.cc",
-      "//chrome/browser/profiles/profile_keyed_service_factory.h",
-      "//chrome/browser/profiles/profile_selections.cc",
-      "//chrome/browser/profiles/profile_selections.h",
       "//chrome/browser/spellchecker/spell_check_host_chrome_impl.cc",
       "//chrome/browser/spellchecker/spell_check_host_chrome_impl.h",
       "//chrome/browser/spellchecker/spell_check_initialization_host_impl.cc",
@@ -476,6 +473,7 @@ source_set("chrome_spellchecker") {
     }
 
     deps += [
+      "//chrome/browser/profiles:profile",
       "//base:base_static",
       "//components/language/core/browser",
       "//components/spellcheck:buildflags",

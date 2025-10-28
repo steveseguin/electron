@@ -1,0 +1,12 @@
+diff --git a/ui/shell_dialogs/BUILD.gn b/ui/shell_dialogs/BUILD.gn
+index ae1226d99fab4..cdcc21ce29fd0 100644
+--- a/ui/shell_dialogs/BUILD.gn
++++ b/ui/shell_dialogs/BUILD.gn
+@@ -66,6 +66,7 @@ component("shell_dialogs") {
+       sources += [
+         "select_file_dialog_linux_portal.cc",
+         "select_file_dialog_linux_portal.h",
++        "../../electron/shell/browser/ui/file_dialog_linux_portal.cc",
+       ]
+       deps += [
+         "//components/dbus",
